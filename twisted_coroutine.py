@@ -122,55 +122,12 @@ def _inlineCallbacks(result, g, deferred):
 
 
 def coroutine(f):  # originally inlineCallbacks
-    """
-    WARNING: this function will not work in Python 2.4 and earlier!
+    """Enhanced version of twisted.internet.defer.inlineCallbacks with fuller support coroutine functionality.
 
-    inlineCallbacks helps you write Deferred-using code that looks like a
-    regular sequential function. This function uses features of Python 2.5
-    generators.  If you need to be compatible with Python 2.4 or before, use
-    the L{deferredGenerator} function instead, which accomplishes the same
-    thing, but with somewhat more boilerplate.  For example::
+    Please see the documentation for twisted.internet.defer.inlineCallbacks for more information.
 
-        @inlineCallBacks
-        def thingummy():
-            thing = yield makeSomeRequestResultingInDeferred()
-            print thing #the result! hoorj!
+    See also: twisted_coroutine.noreturn for information on how to use optimized tail recursion with this decorator.
 
-    When you call anything that results in a L{Deferred}, you can simply yield it;
-    your generator will automatically be resumed when the Deferred's result is
-    available. The generator will be sent the result of the L{Deferred} with the
-    'send' method on generators, or if the result was a failure, 'throw'.
-
-    Things that are not L{Deferred}s may also be yielded, and your generator
-    will be resumed with the same object sent back. This means C{yield}
-    performs an operation roughly equivalent to L{maybeDeferred}.
-
-    Your inlineCallbacks-enabled generator will return a L{Deferred} object, which
-    will result in the return value of the generator (or will fail with a
-    failure object if your generator raises an unhandled exception). Note that
-    you can't use C{return result} to return a value; use C{returnValue(result)}
-    instead. Falling off the end of the generator, or simply using C{return}
-    will cause the L{Deferred} to have a result of C{None}.
-
-    Be aware that L{returnValue} will not accept a L{Deferred} as a parameter.
-    If you believe the thing you'd like to return could be a L{Deferred}, do
-    this::
-
-        result = yield result
-        returnValue(result)
-
-    The L{Deferred} returned from your deferred generator may errback if your
-    generator raised an exception::
-
-        @inlineCallbacks
-        def thingummy():
-            thing = yield makeSomeRequestResultingInDeferred()
-            if thing == 'I love Twisted':
-                # will become the result of the Deferred
-                returnValue('TWISTED IS GREAT!')
-            else:
-                # will trigger an errback
-                raise Exception('DESTROY ALL LIFE')
     """
     def unwindGenerator(*args, **kwargs):
         try:
