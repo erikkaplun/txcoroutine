@@ -38,8 +38,8 @@ coroutine is stopped.
     def some_process():
         try:
             while True:
-            msg = yield get_message()
-            print("processing message: %s" % (msg,))
+                msg = yield get_message()
+                print("processing message: %s" % (msg,))
         finally:  # could use `except GeneratorExit` but `finally` is more illustrative
             print("coroutine stopped, cleaning up")
 
