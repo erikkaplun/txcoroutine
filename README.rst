@@ -70,7 +70,7 @@ Advanced example with multiple levels of coroutines and cascaded flow control
 
     from __future__ import print_function
 
-    from twisted.internet import reactor
+    from twisted.internet import reactor, task
     from twisted.internet.defer import Deferred
 
     @coroutine
@@ -144,6 +144,10 @@ Tail call optimisation
         yield  # make sure it's a generator
 
     n = coroutine(fact)(10000).result
+
+Note, ``fact`` itself should not be decorated with ``coroutine``, otherwise the recursive call would simply create
+another coroutine. This would still support infinite recursion but would be less efficient and consume slightly more
+memory per each new level introduced because, internally, all the Deferreds would be alive and chained to each other.
 
 This is mainly meant for recursively and infinitely swapping out behaviour in long running processes. For
 non-coroutine/non-generator TCO, a simpler approach is also possible by delegating the function invocation directly
