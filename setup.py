@@ -6,7 +6,7 @@ with open('README') as file:
 setup(
     name="twisted-coroutine",
     long_description=long_description,
-    version="1.0.4",
+    version="1.0.5",
     packages=find_packages(),
 
     install_requires=[
