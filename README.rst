@@ -4,9 +4,9 @@ Coroutine flow control
 Description
 -----------
 
-Generators wrapped with ``@twisted_coroutine.coroutine`` are otherwise identical to those wrapped with
+Generators wrapped with ``@txcoroutine.coroutine`` are otherwise identical to those wrapped with
 ``@twisted.internet.defer.inlineCallbacks``, however, the object returned by it is an instance of
-``twisted_coroutine.Coroutine`` which is a subclass of ``twisted.internet.defer.Deferred``.
+``txcoroutine.Coroutine`` which is a subclass of ``twisted.internet.defer.Deferred``.
 
 ``Coroutine`` objects provide an API otherwise identical to that of ``Deferred`` objects, however, calling ``pause``,
 ``unpause`` or ``cancel`` on ``Coroutine`` objects transparently applies the same action on all nested ``Deferred``

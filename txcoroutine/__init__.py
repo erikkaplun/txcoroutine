@@ -126,7 +126,7 @@ def coroutine(f):  # originally inlineCallbacks
 
     Please see the documentation for twisted.internet.defer.inlineCallbacks for more information.
 
-    See also: twisted_coroutine.noreturn for information on how to use optimized tail recursion with this decorator.
+    See also: txcoroutine.noreturn for information on how to use optimized tail recursion with this decorator.
 
     """
     def unwindGenerator(*args, **kwargs):

@@ -5,7 +5,7 @@ from contextlib import contextmanager
 
 from twisted.internet.defer import Deferred, returnValue, fail, succeed, CancelledError
 
-from twisted_coroutine import noreturn, coroutine
+from txcoroutine import noreturn, coroutine
 # from unnamedframework.util.testing import assert_raises, deferred_result, assert_not_raises
 
 

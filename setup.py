@@ -4,7 +4,7 @@ with open('README.rst') as file:
     long_description = file.read()
 
 setup(
-    name="twisted-coroutine",
+    name="txcoroutine",
     long_description=long_description,
     version="1.0.6",
     packages=find_packages(),
@@ -15,6 +15,5 @@ setup(
 
     author="Erik Allik",
     author_email="eallik@gmail.com",
-    url="http://github.com/eallik/twisted-coroutine/"
+    url="http://github.com/eallik/txcoroutine/"
 )
-
