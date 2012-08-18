@@ -5,6 +5,7 @@ with open('README.rst') as file:
 
 setup(
     name="txcoroutine",
+    description="Coroutines for Twisted with tail call optimization support",
     long_description=long_description,
     version="1.0.6",
     packages=find_packages(),
@@ -15,5 +16,6 @@ setup(
 
     author="Erik Allik",
     author_email="eallik@gmail.com",
+    license="BSD",
     url="http://github.com/eallik/txcoroutine/"
 )
