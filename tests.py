@@ -214,6 +214,20 @@ def test_pause_unpause_cancel_on_coroutine_with_no_depends_on():
     c.cancel()
 
 
+def test_cancelled_coroutine_does_not_keep_its_last_depends_on_from_being_garbage_collected():
+    depends_on = Deferred()
+
+    @coroutine
+    def fn():
+        yield depends_on
+
+    c = fn()
+    depends_on_weakref = weakref.ref(depends_on)
+    depends_on = None
+    c.cancel()
+    assert not depends_on_weakref()
+
+
 @contextmanager
 def recursion_limit(n):
     old = sys.getrecursionlimit()

@@ -179,6 +179,7 @@ class Coroutine(Deferred):
         if self.depends_on:
             self.depends_on.addErrback(_swallow_cancelled_error)
             self.depends_on.cancel()
+            del self.depends_on
 
         self.addErrback(_swallow_cancelled_error)
         Deferred.cancel(self)
