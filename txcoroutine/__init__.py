@@ -147,6 +147,9 @@ def coroutine(f):  # originally inlineCallbacks
     return mergeFunctionMetadata(f, unwindGenerator)
 
 
+_swallow_cancelled_error = lambda f: f.trap(CancelledError)
+
+
 class Coroutine(Deferred):
     # this is something like chaining, but firing of the other deferred does not cause this deferred to fire.
     # also, we manually unchain and rechain as the coroutine yields new Deferreds.
@@ -170,15 +173,14 @@ class Coroutine(Deferred):
         # its clean-up routine, the inner Deferred hadn't yet actually been cancelled.
         self.cancelling = True
 
-        # this errback is added as the last one, so anybody else who is already listening for CancelledError
-        # will still get it.
-        swallow_cancelled_error = lambda f: f.trap(CancelledError)
+        # the _swallow_cancelled_error errback is added as the last one, so anybody else who is already listening for
+        # CancelledError will still get it.
 
         if self.depends_on:
-            self.depends_on.addErrback(swallow_cancelled_error)
+            self.depends_on.addErrback(_swallow_cancelled_error)
             self.depends_on.cancel()
 
-        self.addErrback(swallow_cancelled_error)
+        self.addErrback(_swallow_cancelled_error)
         Deferred.cancel(self)
 
 
