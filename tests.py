@@ -203,6 +203,17 @@ def test_noreturn_with_regular_function():
     assert retval == 'someretval'
 
 
+def test_pause_unpause_cancel_on_coroutine_with_no_depends_on():
+    @coroutine
+    def fn():
+        yield
+
+    c = fn()
+    c.pause()
+    c.unpause()
+    c.cancel()
+
+
 @contextmanager
 def recursion_limit(n):
     old = sys.getrecursionlimit()

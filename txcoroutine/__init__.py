@@ -154,11 +154,13 @@ class Coroutine(Deferred):
     depends_on = None
 
     def pause(self):
-        self.depends_on.pause()
+        if self.depends_on:
+            self.depends_on.pause()
         return Deferred.pause(self)
 
     def unpause(self):
-        self.depends_on.unpause()
+        if self.depends_on:
+            self.depends_on.unpause()
         return Deferred.unpause(self)
 
     def cancel(self):
@@ -172,8 +174,9 @@ class Coroutine(Deferred):
         # will still get it.
         swallow_cancelled_error = lambda f: f.trap(CancelledError)
 
-        self.depends_on.addErrback(swallow_cancelled_error)
-        self.depends_on.cancel()
+        if self.depends_on:
+            self.depends_on.addErrback(swallow_cancelled_error)
+            self.depends_on.cancel()
 
         self.addErrback(swallow_cancelled_error)
         Deferred.cancel(self)
