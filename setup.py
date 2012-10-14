@@ -7,14 +7,12 @@ setup(
     name="txcoroutine",
     description="Coroutines for Twisted with tail call optimization support",
     long_description=long_description,
-    version="1.0.8",
+    version="1.0.9",
     packages=find_packages(),
 
     install_requires=[
         'twisted',
     ],
-
-    data_files=['README.rst', 'LICENSE'],
 
     author="Erik Allik",
     author_email="eallik@gmail.com",
