@@ -14,6 +14,8 @@ setup(
         'twisted',
     ],
 
+    data_files=['README.rst', 'LICENSE'],
+
     author="Erik Allik",
     author_email="eallik@gmail.com",
     license="BSD",
